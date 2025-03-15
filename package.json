@@ -1,0 +1,27 @@
+{
+  "name": "wyrodektestcypress",
+  "version": "1.0.0",
+  "description": "Test Automation Project in Cypress - Maciej Wyrodek Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ostoja24/WyrodekTestCypress.git"
+  },
+  "author": "Tomasz Ostojski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ostoja24/WyrodekTestCypress/issues"
+  },
+  "homepage": "https://github.com/Ostoja24/WyrodekTestCypress#readme",
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "cypress": "^14.2.0",
+    "jquery": "^3.7.1",
+    "wyrodektestcypress": "file:"
+  }
+}
