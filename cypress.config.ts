@@ -15,8 +15,8 @@ export default defineConfig({
   pageLoadTimeout: 10000,
   defaultCommandTimeout:5000,
   waitForAnimations: true,
-  // retries:{
-  //   openMode:2,
-  //   runMode:4
-  // }
+  retries:{
+    openMode:2,
+    runMode:4
+  }
 });

@@ -90,9 +90,6 @@ export class ContactPage extends BasePage {
         cy.get(this.spinnerSubmit,{timeout:10000}).should('not.be.visible');
         cy.get(this.submitSuccessfullMessage).should("be.visible").should("have.text","Przynajmniej jedno pole jest błędnie wypełnione. Sprawdź wpisaną treść i spróbuj ponownie.");
     }
-    public isValidationFieldMessage(){
-        
-    }
     public getContactFormBuild(name: string, email: string, subject: string, message?: string): ContactForm{
         const contactFormObject = new ContactFormBuilder();
         const isMessageTyped: boolean = this.isTextMessage(message);
