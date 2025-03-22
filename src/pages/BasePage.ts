@@ -1,6 +1,6 @@
 export class BasePage {
     protected typeIntoField(fieldSelector: string, text: string) {
-        cy.get(fieldSelector).type(text);
+        cy.get(fieldSelector).scrollIntoView().focus().realType(text);
     }
     protected clickButton(buttonSelector: string) {
         cy.get(buttonSelector).click();
@@ -14,5 +14,9 @@ export class BasePage {
     protected clearBeforeTest(): void{
         cy.clearAllCookies();
         cy.clearAllLocalStorage();
+    }
+    public waitForPageToLoad(): void {
+        cy.document().should('have.property', 'readyState', 'complete');
+        cy.get("input[name='your-name']").should('be.visible');
     }
 }
