@@ -1,6 +1,4 @@
 import { BasePage } from "./BasePage";
-import { ContactFormBuilder } from "../models/contactForm/ContactFormBuilder";
-import { ContactForm } from "src/models/ContactForm";
 import "cypress-real-events";
 
 export class ContactPage extends BasePage {
@@ -53,10 +51,10 @@ export class ContactPage extends BasePage {
             }
         }
     }
-    public clickOnSubmitButton(){
+    public clickOnSubmitButton(): void{
         this.getElement(this.submitButtonSelector).realClick();
     }
-    public clearAllFormFields(){
+    public clearAllFormFields():void{
         cy.window().then(win => {
             win.document.querySelectorAll('input, textarea').forEach((el: Element) => {
                 if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
@@ -82,31 +80,13 @@ export class ContactPage extends BasePage {
                 break;
         }
     }
-    public isMessageSubmitSuccessfull(){
+    public isMessageSubmitSuccessfull(): void{
         cy.get(this.spinnerSubmit,{timeout:10000}).should('not.be.visible');
         cy.get(this.submitSuccessfullMessage).should("be.visible").should("have.text","Twoja wiadomość została wysłana. Dziękujemy!");
     }
-    public isMessageSubmitFailed(){
+    public isMessageSubmitFailed(): void{
         cy.get(this.spinnerSubmit,{timeout:10000}).should('not.be.visible');
         cy.get(this.submitSuccessfullMessage).should("be.visible").should("have.text","Przynajmniej jedno pole jest błędnie wypełnione. Sprawdź wpisaną treść i spróbuj ponownie.");
-    }
-    public getContactFormBuild(name: string, email: string, subject: string, message?: string): ContactForm{
-        const contactFormObject = new ContactFormBuilder();
-        const isMessageTyped: boolean = this.isTextMessage(message);
-        contactFormObject.email = email;
-        contactFormObject.name = name;
-        contactFormObject.topic = subject;
-        contactFormObject.tag = "[TOST]";
-        if (isMessageTyped && message){
-            contactFormObject.message = message;
-        }
-        return contactFormObject.build();
-    }
-    private isTextMessage(textMessage: string | undefined): boolean {
-        if (textMessage != undefined && textMessage.length > 0){
-            return true;
-        }
-        else return false;
     }
     public typeIntoFieldWithSpecialChars(selector: string, text: string): void {
         cy.get(selector).clear().type(text);

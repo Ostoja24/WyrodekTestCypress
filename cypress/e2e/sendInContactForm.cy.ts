@@ -1,18 +1,16 @@
-import { ContactFormBuilder } from "../../src/models/contactForm/ContactFormBuilder";
 import { ContactPage } from "../../src/pages/ContactPage";
 import "cypress-real-events";
 describe("Contact form test set",  () => {
         const contactPage = new ContactPage();
-        const tag = new ContactFormBuilder().build().tag;
-        const contactFormObject = contactPage.getContactFormBuild("Jan","example@example.com",
-            tag + " test Cypress","Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        const contactFormObjectEmailCase = contactPage.getContactFormBuild("Jan","example@.com",
-            tag + " test Cypress","Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+        let contactFormObject;
         
         before(() =>{
             cy.clearLocalStorage();
             cy.clearAllCookies();
             cy.clearAllSessionStorage();
+            cy.fixture('contactFormObject.json').then((object) => {
+            contactFormObject = object;
+               })
             contactPage.visitContactFormPage();
             contactPage.waitForPageToLoad();
         })
@@ -22,10 +20,10 @@ describe("Contact form test set",  () => {
             contactPage.clearAllFormFields();
         })
         it ("TC1. Fill in all fields, succesfull sent", () => {
-            contactPage.typeIntoContactFormField("Twoje imię", contactFormObject.name);
-            contactPage.typeIntoContactFormField("Twój email", contactFormObject.email);
-            contactPage.typeIntoContactFormField("Twoja wiadomości (optional)", contactFormObject.message || "");
-            contactPage.typeIntoContactFormField("Temat",contactFormObject.topic);
+            contactPage.typeIntoContactFormField("Twoje imię", contactFormObject.standard.name);
+            contactPage.typeIntoContactFormField("Twój email", contactFormObject.standard.email);
+            contactPage.typeIntoContactFormField("Twoja wiadomości (optional)", contactFormObject.standard.message || "");
+            contactPage.typeIntoContactFormField("Temat",contactFormObject.standard.tag + contactFormObject.standard.topic);
             contactPage.clickOnSubmitButton();
             contactPage.isMessageSubmitSuccessfull();
         });
@@ -37,8 +35,8 @@ describe("Contact form test set",  () => {
             contactPage.checkIfSocialMediaPageIsOpened("Github");
         });
         it("TC3. Fill in not all fields, unsuccesfull sent", () => {
-            contactPage.typeIntoContactFormField("Twoje imię", contactFormObject.name);
-            contactPage.typeIntoContactFormField("Twój email", contactFormObject.email);
+            contactPage.typeIntoContactFormField("Twoje imię", contactFormObject.standard.name);
+            contactPage.typeIntoContactFormField("Twój email", contactFormObject.standard.email);
             contactPage.clickOnSubmitButton();
             contactPage.isMessageSubmitFailed();
         });
@@ -47,10 +45,10 @@ describe("Contact form test set",  () => {
             contactPage.isMessageSubmitFailed();
         });
         it("TC5. Send message to invalid email address", () => {
-            contactPage.typeIntoContactFormField("Twoje imię", contactFormObjectEmailCase.name);
-            contactPage.typeIntoContactFormField("Twój email", contactFormObjectEmailCase.email);
-            contactPage.typeIntoContactFormField("Twoja wiadomości (optional)", contactFormObjectEmailCase.message || "");
-            contactPage.typeIntoContactFormField("Temat",contactFormObjectEmailCase.topic);
+            contactPage.typeIntoContactFormField("Twoje imię", contactFormObject.emailCase.name);
+            contactPage.typeIntoContactFormField("Twój email", contactFormObject.emailCase.email);
+            contactPage.typeIntoContactFormField("Twoja wiadomości (optional)", contactFormObject.emailCase.message || "");
+            contactPage.typeIntoContactFormField("Temat",contactFormObject.standard.tag + contactFormObject.standard.topic);
             contactPage.clickOnSubmitButton();
             contactPage.isMessageSubmitFailed();
         });

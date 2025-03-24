@@ -1,12 +1,16 @@
 export class BasePage {
-    protected typeIntoField(fieldSelector: string, text: string) {
+    public visitPage(url: string): void {
+        cy.visit(url);
+    }
+    public waitForPageToLoad(): void {
+        cy.document().should('have.property', 'readyState', 'complete');
+        cy.get("input[name='your-name']").should('be.visible');
+    }
+    protected typeIntoField(fieldSelector: string, text: string): void {
         cy.get(fieldSelector).scrollIntoView().focus().realType(text);
     }
-    protected clickButton(buttonSelector: string) {
+    protected clickButton(buttonSelector: string): void {
         cy.get(buttonSelector).click();
-    }
-    public visitPage(url: string) {
-        cy.visit(url);
     }
     protected getElement(selectorName:string):Cypress.Chainable<JQuery<HTMLElement>>{
         return cy.get(selectorName);
@@ -14,9 +18,5 @@ export class BasePage {
     protected clearBeforeTest(): void{
         cy.clearAllCookies();
         cy.clearAllLocalStorage();
-    }
-    public waitForPageToLoad(): void {
-        cy.document().should('have.property', 'readyState', 'complete');
-        cy.get("input[name='your-name']").should('be.visible');
     }
 }
