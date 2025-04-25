@@ -1,0 +1,17 @@
+{
+  "standard":
+  {
+  "name":"Jan",
+  "email":"example@example.com",
+  "message": "test Cypress, Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "topic":" test Cypress",
+  "tag": "[TOSTO]"
+},
+  "emailCase":{
+    "name":"Jan",
+    "email":"example@.com",
+    "message": "test Cypress, Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "topic":" test Cypress",
+    "tag": "[TOSTO]"
+  }
+}
