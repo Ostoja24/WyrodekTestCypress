@@ -1,22 +1,13 @@
+import 'cypress-network-idle';
 export class BasePage {
-    public visitPage(url: string): void {
-        cy.visit(url);
-    }
-    public waitForPageToLoad(): void {
+    public waitForPageToLoad(): BasePage {
         cy.document().should('have.property', 'readyState', 'complete');
-        cy.get("input[name='your-name']").should('be.visible');
+        cy.waitForNetworkIdle(500);
+        cy.wait(500);
+        return this;
     }
-    protected typeIntoField(fieldSelector: string, text: string): void {
+    protected typeIntoField(fieldSelector: string, text: string): BasePage {
         cy.get(fieldSelector).scrollIntoView().focus().realType(text);
-    }
-    protected clickButton(buttonSelector: string): void {
-        cy.get(buttonSelector).click();
-    }
-    protected getElement(selectorName:string):Cypress.Chainable<JQuery<HTMLElement>>{
-        return cy.get(selectorName);
-    }
-    protected clearBeforeTest(): void{
-        cy.clearAllCookies();
-        cy.clearAllLocalStorage();
+        return this;
     }
 }
