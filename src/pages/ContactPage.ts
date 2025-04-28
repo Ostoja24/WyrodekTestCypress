@@ -12,49 +12,40 @@ export class ContactPage extends BasePage {
     constructor(){
         super();
     }
-    public visitContactFormPage(): void{
-        this.visitPage("https://www.wyrodek.pl/contact/");
+    public visitContactFormPage(): ContactPage{
+        cy.visit("https://www.wyrodek.pl/contact/");
+        return this;
     }
-    public getSocialMediaButton(socialMediaName: string){
-        switch(socialMediaName) {
-            case ("Facebook"):{
-                const facebookButtonSelector: string = "a.elementor-social-icon-facebook"
-                return this.getElement(facebookButtonSelector)
-            }
-            case ("X"):{
-                const XButtonSelector: string = "a.elementor-social-icon-twitter"
-                return this.getElement(XButtonSelector)
-            }
-        }
-    }
-    public checkIfSocialMediaPageIsOpened(socialMediaName: string): void {
-        const socialMediaButton = this.getSocialMediaButton(socialMediaName);
-        if (socialMediaButton) {
+    public checkIfSocialMediaPageIsLinked(socialMediaName: string): void {
             switch(socialMediaName) {
                 case "Facebook":
-                    socialMediaButton.should('have.attr', 'href', 'https://www.facebook.com/MaciejWyrodek.ITea');
+                    cy.get("a.elementor-social-icon-facebook").should('have.attr', 'href', 'https://www.facebook.com/MaciejWyrodek.ITea');
                     break;
                 case "X":
-                    socialMediaButton.should('have.attr', 'href',"https://twitter.com/maciejwyrodek");
+                    cy.get("a.elementor-social-icon-twitter").should('have.attr', 'href',"https://twitter.com/maciejwyrodek");
                     break;
                 case "Youtube":
-                    socialMediaButton.should('have.attr', 'href',"https://www.youtube.com/@ITeaMorning/");
+                    cy.get("a.elementor-social-icon-youtube").should('have.attr', 'href',"https://www.youtube.com/@ITeaMorning/");
                     break;
                 case "LinkedIn":
-                    socialMediaButton.should('have.attr', 'href',"https://www.linkedin.com/in/wyrodek/");
+                    cy.get("a.elementor-social-icon-linkedin").should('have.attr', 'href',"https://www.linkedin.com/in/wyrodek/");
                     break;
                 case "Github":
-                    socialMediaButton.should('have.attr','href',"https://github.com/mwyrodek");
+                    cy.get("a.elementor-social-icon-github").should('have.attr','href',"https://github.com/mwyrodek");
                     break;
                 default:
                     throw new Error(`Unsupported social media: ${socialMediaName}`);
             }
         }
+
+    public clickOnSubmitButton(): ContactPage {
+        const submitButtonElement = cy.get(this.submitButtonSelector);
+        submitButtonElement.should('be.enabled');
+        cy.get(this.submitButtonSelector).scrollIntoView().realClick();
+        return this;
     }
-    public clickOnSubmitButton(): void{
-        this.getElement(this.submitButtonSelector).realClick();
-    }
-    public clearAllFormFields():void{
+    public clearAllFormFields(): ContactPage {
+        this.makeFormDisplayed();
         cy.window().then(win => {
             win.document.querySelectorAll('input, textarea').forEach((el: Element) => {
                 if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
@@ -62,8 +53,9 @@ export class ContactPage extends BasePage {
                 }
             });
         });
+        return this;
     }
-    public typeIntoContactFormField(contactFormFieldLabel: string, text: string): void {
+    public typeIntoContactFormField(contactFormFieldLabel: string, text: string): ContactPage {
         const contactFormLabelTrimmed: string =  contactFormFieldLabel.trim();
         switch(contactFormLabelTrimmed){
             case ("Twoje imię"):
@@ -79,16 +71,23 @@ export class ContactPage extends BasePage {
                 this.typeIntoField(this.yourTextMessageField, text);
                 break;
         }
+        return this;
     }
-    public isMessageSubmitSuccessfull(): void{
+    public isMessageSubmitSuccessfull(): ContactPage {
         cy.get(this.spinnerSubmit,{timeout:10000}).should('not.be.visible');
         cy.get(this.submitSuccessfullMessage).should("be.visible").should("have.text","Twoja wiadomość została wysłana. Dziękujemy!");
+        return this;
     }
-    public isMessageSubmitFailed(): void{
+    public isMessageSubmitFailed(): ContactPage {
         cy.get(this.spinnerSubmit,{timeout:10000}).should('not.be.visible');
-        cy.get(this.submitSuccessfullMessage).should("be.visible").should("have.text","Przynajmniej jedno pole jest błędnie wypełnione. Sprawdź wpisaną treść i spróbuj ponownie.");
+        cy.get(this.submitSuccessfullMessage).should("be.visible").should("have.text","Przynajmniej jedno pole jest błędnie wypełnione. Sprawdź wpisaną treść i spróbuj ponownie.")
+        return this;
     }
-    public typeIntoFieldWithSpecialChars(selector: string, text: string): void {
-        cy.get(selector).clear().type(text);
+    private makeFormDisplayed(): void {
+        cy.get('.wpcf7-response-output').invoke('css','display')
+    }
+    public clickSubmitButtonForced(): ContactPage {
+        cy.get(this.submitButtonSelector).click({force:true})
+        return this;
     }
 }

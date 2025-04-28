@@ -6,7 +6,8 @@ export default defineConfig({
       // implement node event listeners here
     },
     supportFile: false,
-    testIsolation: false,
+    testIsolation: true,
+    baseUrl:"https://www.wyrodek.pl/"
   },
   chromeWebSecurity: false,
   requestTimeout: 5000,
