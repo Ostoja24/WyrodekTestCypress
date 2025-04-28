@@ -21,7 +21,8 @@ jobs:
         uses: cypress-io/github-action@v6
         with: 
           browser: chrome
-          spec: cypress/e2e/sendInContactForm.cy.ts
+          spec: cypress/e2e/sendInContactForm.cy.ts,
+                cypress/e2e/searchInBlog.cy.ts
           
       - name: Upload Cypress Videos
         if: always()  # ensures it runs even if tests fail
