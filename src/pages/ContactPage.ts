@@ -42,6 +42,7 @@ export class ContactPage extends BasePage {
         const submitButtonElement = cy.get(this.submitButtonSelector);
         submitButtonElement.should('be.enabled');
         cy.get(this.submitButtonSelector).scrollIntoView().realClick();
+        cy.intercept('GET','https://www.wyrodek.pl/wp-json/contact-form-7/v1/contact-forms/257/refill').as('successMessage');
         return this;
     }
     public clearAllFormFields(): ContactPage {
@@ -76,6 +77,8 @@ export class ContactPage extends BasePage {
     public isMessageSubmitSuccessfull(): ContactPage {
         cy.get(this.spinnerSubmit,{timeout:10000}).should('not.be.visible');
         cy.get(this.submitSuccessfullMessage).should("be.visible").should("have.text","Twoja wiadomość została wysłana. Dziękujemy!");
+        cy.wait('@successMessage').its('response.statusCode').should('eq', 200);
+        cy.get(this.submitSuccessfullMessage).should("have.text","Twoja wiadomość została wysłana. Dziękujemy!");
         return this;
     }
     public isMessageSubmitFailed(): ContactPage {
