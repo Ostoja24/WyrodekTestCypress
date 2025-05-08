@@ -12,8 +12,7 @@ export class HeaderComponent extends BasePage{
     public typeIntoSearchField(text: string): BlogPage {
         cy.wait(1000);
         cy.get(this.searchSelector).should('be.visible').click();
-        cy.wait(1000);
-        cy.get(this.searchField).should('be.visible').type(text).type('{enter}');
+        cy.get(this.searchField).should('be.visible').should('have.css', 'visibility', 'visible').type(text).type('{enter}');
         return new BlogPage();
     }
     public hoverOnServiceAndChooseDropdownOption(optionName: string): void{
