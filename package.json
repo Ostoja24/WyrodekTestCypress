@@ -21,11 +21,11 @@
     "@cypress/puppeteer": "^0.1.5",
     "cypress": "^14.3.0",
     "cypress-network-idle": "^1.15.0",
+    "cypress-real-events": "^1.14.0",
     "typescript": "^5.8.2"
   },
   "dependencies": {
     "Cypress": "npm:cypress@^14.3.0",
-    "cypress-real-events": "^1.14.0",
     "jquery": "^3.7.1",
     "wyrodektestcypress": "file:"
   }
