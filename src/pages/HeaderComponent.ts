@@ -1,6 +1,7 @@
 import { BasePage } from "./BasePage";
 import { BlogPage } from "./BlogPage";
 import 'cypress-network-idle';
+import "cypress-real-events";
 export class HeaderComponent extends BasePage{
     private readonly searchSelector = 'div[id="site-header-inner"] i.icon-magnifier';
     private readonly searchField = 'div[id="searchform-dropdown"] input[type="search"]';
