@@ -2,7 +2,7 @@ import 'cypress-network-idle';
 export class BasePage {
     public waitForPageToLoad(): BasePage {
         cy.document().should('have.property', 'readyState', 'complete');
-        cy.waitForNetworkIdle(500);
+        cy.waitForNetworkIdle(1500);
         cy.wait(500);
         Cypress.on('uncaught:exception', (err, runnable) => {
             return false
