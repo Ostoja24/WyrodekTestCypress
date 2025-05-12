@@ -14,6 +14,7 @@ export class HeaderComponent extends BasePage{
         cy.wait(1000);
         cy.get(this.searchSelector).should('be.visible');
         cy.get(this.searchSelector).click({force:true});
+        cy.wait(2000);
         cy.get(this.searchField).should('be.visible').should('have.css', 'visibility', 'visible').type(text).type('{enter}');
         return new BlogPage();
     }
