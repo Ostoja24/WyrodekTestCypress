@@ -41,8 +41,9 @@ export class ContactPage extends BasePage {
     public clickOnSubmitButton(): ContactPage {
         const submitButtonElement = cy.get(this.submitButtonSelector);
         submitButtonElement.should('be.enabled');
-        cy.get(this.submitButtonSelector).scrollIntoView().click({force:true});
+        cy.get(this.submitButtonSelector).scrollIntoView().realClick();
         cy.intercept('GET','https://www.wyrodek.pl/wp-json/contact-form-7/v1/contact-forms/257/refill').as('successMessage');
+        cy.wait(500);
         return this;
     }
     public clearAllFormFields(): ContactPage {

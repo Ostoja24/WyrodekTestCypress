@@ -10,8 +10,8 @@ export default defineConfig({
     baseUrl:"https://www.wyrodek.pl/"
   },
   chromeWebSecurity: false,
-  requestTimeout: 5000,
-  responseTimeout: 5000,
+  requestTimeout: 10000,
+  responseTimeout: 10000,
   execTimeout: 5000,
   pageLoadTimeout: 10000,
   defaultCommandTimeout:5000,
