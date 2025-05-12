@@ -13,6 +13,7 @@ export class HeaderComponent extends BasePage{
     public typeIntoSearchField(text: string): BlogPage {
         cy.wait(1000);
         cy.get(this.searchSelector).should('be.visible');
+        cy.wait(1000);
         cy.get(this.searchSelector).click({force:true});
         cy.wait(2000);
         cy.get(this.searchField).should('be.visible').should('have.css', 'visibility', 'visible').type(text).type('{enter}');
