@@ -42,7 +42,7 @@ export class ContactPage extends BasePage {
         const submitButtonElement = cy.get(this.submitButtonSelector);
         submitButtonElement.should('be.enabled');
         cy.intercept('GET','https://www.wyrodek.pl/wp-json/contact-form-7/v1/contact-forms/257/refill').as('successMessage');
-        cy.get(this.submitButtonSelector).scrollIntoView().realClick();
+        cy.get(this.submitButtonSelector).scrollIntoView().trigger("click");
         // cy.waitForNetworkIdle('GET','https://www.wyrodek.pl/wp-json/contact-form-7/v1/contact-forms/257/refill',2000);
         return this;
     }
