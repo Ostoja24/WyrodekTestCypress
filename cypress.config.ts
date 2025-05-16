@@ -12,6 +12,11 @@ export default defineConfig({
     testIsolation: true,
     baseUrl:"https://www.wyrodek.pl/"
   },
+  env: {
+    shortTimeout: 500,
+    longTimeout: 5000,
+    extremeTimeout: 50_000
+  },
   chromeWebSecurity: false,
   requestTimeout: 10000,
   responseTimeout: 10000,
