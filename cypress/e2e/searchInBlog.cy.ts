@@ -1,6 +1,6 @@
 import { BlogPage } from "src/pages/BlogPage";
 import { HeaderComponent } from "src/pages/HeaderComponent";
-describe.only("Blog Page test cases",  () => {
+describe("Blog Page test cases",  () => {
     const blogPage = new BlogPage();
     const headerComponent = new HeaderComponent();
     const blogPageIndex: number = 2

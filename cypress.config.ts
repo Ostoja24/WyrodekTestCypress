@@ -3,9 +3,12 @@ import { defineConfig } from "cypress";
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
+      require('cypress-terminal-report/src/installLogsPrinter')(on,{
+        printLogsToConsole: 'onFail'
+      })
       // implement node event listeners here
     },
-    supportFile: false,
+    // supportFile: true,
     testIsolation: true,
     baseUrl:"https://www.wyrodek.pl/"
   },
