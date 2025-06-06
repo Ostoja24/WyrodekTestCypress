@@ -1,9 +1,10 @@
 import 'cypress-network-idle';
 export class BasePage {
     public waitForPageToLoad(): BasePage {
+        const longTimeout = Cypress.env('longTimeout');
         cy.document().should('have.property', 'readyState', 'complete');
-        cy.waitForNetworkIdle(1500);
-        cy.wait(Cypress.env('shortTimeout'));
+        cy.waitForNetworkIdle(longTimeout);
+        cy.wait(longTimeout);
         Cypress.on('uncaught:exception', () => {
             return false
           })

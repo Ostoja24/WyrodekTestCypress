@@ -14,7 +14,7 @@ export default defineConfig({
   },
   env: {
     shortTimeout: 500,
-    longTimeout: 5000,
+    longTimeout: 2000,
     extremeTimeout: 50_000
   },
   chromeWebSecurity: false,
