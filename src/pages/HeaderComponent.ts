@@ -7,15 +7,16 @@ export class HeaderComponent extends BasePage{
     private readonly searchField = 'div[id="searchform-dropdown"] input[type="search"]';
     private readonly headerOptionSelector = "a.menu-link";
     private readonly dropdownServiceOption = "ul.sub-menu > li";
+    private readonly searchElement = "div.header-searchform-wrap";
     constructor(){
         super();
     }
     public typeIntoSearchField(text: string): BlogPage {
-        cy.wait(10000);
         cy.get(this.searchSelector).should('be.visible');
         cy.wait(1000);
         cy.get(this.searchSelector).click();
         cy.wait(2000);
+        cy.get(this.searchElement).should('be.visible');
         cy.get(this.searchField).should('be.visible').should('have.css', 'visibility', 'visible').type(text).type('{enter}');
         return new BlogPage();
     }
