@@ -12,13 +12,13 @@ describe("Blog Page test cases",  () => {
         headerComponent.typeIntoSearchField("tester")
         .checkFirstArticleTitleOnSearchResults("Kurs na testera oprogramowania – przewodnik: co działa, a co nie?")
         .clickReadMoreButton(0)
-        .checkIfArticleIsVisibleOnDedicatedPage("Kurs na testera oprogramowania – przewodnik: co działa, a co nie?")
+        .checkIfArticleIsVisibleOnDedicatedPage("Kurs na testera oprogramowania – przewodnik: co działa, a co nie?");
     })
     it('TC2. Check partial "Ann" phase in search field', () => {
         headerComponent.typeIntoSearchField("Ann")
         .checkFirstArticleTitleOnSearchResults("Kurs na testera oprogramowania – przewodnik: co działa, a co nie?")
         .clickReadMoreButton(0)
-        .checkIfArticleIsVisibleOnDedicatedPage("Kurs na testera oprogramowania – przewodnik: co działa, a co nie?")
+        .checkIfArticleIsVisibleOnDedicatedPage("Kurs na testera oprogramowania – przewodnik: co działa, a co nie?");
     })
     it('TC3. Check "23.00" in search field', ()=> {
         headerComponent.typeIntoSearchField("23.00")

@@ -87,11 +87,11 @@ export class ContactPage extends BasePage {
         cy.get(this.submitSuccessfullMessage).should("be.visible").should("have.text","Przynajmniej jedno pole jest błędnie wypełnione. Sprawdź wpisaną treść i spróbuj ponownie.")
         return this;
     }
-    private makeFormDisplayed(): void {
-        cy.get('.wpcf7-response-output').invoke('css','display')
-    }
     public clickSubmitButtonForced(): ContactPage {
         cy.get(this.submitButtonSelector).click({force:true})
         return this;
+    }
+    private makeFormDisplayed(): void {
+        cy.get('.wpcf7-response-output').invoke('css','display')
     }
 }

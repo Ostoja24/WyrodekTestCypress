@@ -4,7 +4,7 @@ export class BasePage {
         cy.document().should('have.property', 'readyState', 'complete');
         cy.waitForNetworkIdle(1500);
         cy.wait(Cypress.env('shortTimeout'));
-        Cypress.on('uncaught:exception', (err, runnable) => {
+        Cypress.on('uncaught:exception', () => {
             return false
           })
         return this;
