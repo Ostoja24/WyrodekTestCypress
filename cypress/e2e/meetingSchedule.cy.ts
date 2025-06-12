@@ -23,7 +23,7 @@ describe('Meetings Schedule Tests', () => {
         meetingSchedulerPage.visitMeetingSchedulerPage()
         .checkIfMonthPickerHasCurrentMonth();
     })
-    it.only('TC4. Check if Meeting Scheduler has visible calendar days', () => {
+    it('TC4. Check if Meeting Scheduler has visible calendar days', () => {
         meetingSchedulerPage.visitMeetingSchedulerPage()
        .checkIfAllWeekDaysHaveTitlesInCalendar();
     })
