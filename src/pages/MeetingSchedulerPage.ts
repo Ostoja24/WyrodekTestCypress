@@ -24,7 +24,10 @@ export class MeetingSchedulerPage extends BasePage {
         this.iterateAllWeekdaysInCalendar(expectedWeekdays);
         return this;
     }
-
+    public visitMeetingSchedulerPage(): MeetingSchedulerPage {
+        cy.visit(this.meetingSchedulerUrl);
+        return this;
+    }
     private iterateAllWeekdaysInCalendar(expectedWeekList: Array<string>) {
         cy.get(this.weekdaysTitles).then((weekdays) => {
             const weekdaysList: Array<string> = [];
@@ -35,10 +38,6 @@ export class MeetingSchedulerPage extends BasePage {
                 expect(weekdaysList[i]).to.equal(expectedWeekList[i]);
             }
         });
-    }
-    public visitMeetingSchedulerPage(): MeetingSchedulerPage {
-        cy.visit(this.meetingSchedulerUrl);
-        return this;
     }
 }
 
