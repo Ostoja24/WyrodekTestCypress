@@ -4,7 +4,6 @@ import "cypress-real-events";
 describe("Contact form test set",  () => {
         const contactPage = new ContactPage();
         let contactFormObject;
-        
         before(() =>{
             cy.fixture('contactFormObject.json').then((object) => {
             contactFormObject = object;
@@ -16,6 +15,7 @@ describe("Contact form test set",  () => {
             contactPage.clearAllFormFields();
             helpers.cypressCaughtException();
         });
+        
         it ("TC1. Fill in all fields, succesfull sent", () => {
             contactPage.typeIntoContactFormField("Twoje imię", contactFormObject.standard.name)
             .typeIntoContactFormField("Twój email", contactFormObject.standard.email)
