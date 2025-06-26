@@ -51,6 +51,26 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots
           if-no-files-found: ignore
+      - name: Debug - Check what files were created
+        if: always()
+        run: |
+          echo "=== Current directory ==="
+          pwd
+          ls -la
+          
+          echo "=== Looking for reports directory ==="
+          find . -name "reports" -type d 2>/dev/null || echo "No reports directory found"
+          
+          echo "=== Looking for any XML files ==="
+          find . -name "*.xml" -type f 2>/dev/null || echo "No XML files found anywhere"
+          
+          echo "=== Looking for junit files ==="
+          find . -name "*junit*" -type f 2>/dev/null || echo "No junit files found"
+          
+          echo "=== Tree view (if available) ==="
+          tree . 2>/dev/null || ls -R   
+
+          echo "=== Contents of reports directory ==="  
       - name: Python setup
         if: always()
         uses: actions/setup-python@v3
@@ -59,6 +79,10 @@ jobs:
       - name: TestRail CLI upload results from test execution
         if: always()
         run: |
+          echo "Checking for JUnit XML files..."
+          if [ -d "reports" ] && [ -n "$(find reports -name '*.xml' -type f 2>/dev/null)" ]; then
+            echo "Found XML files:"
+            find reports -name "*.xml" -type f
           pip install trcli
           trcli -y \
             -h https://ostoja24.testrail.io/ \
