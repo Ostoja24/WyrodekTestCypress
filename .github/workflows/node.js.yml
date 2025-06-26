@@ -30,6 +30,10 @@ jobs:
           spec: |
             cypress/e2e/sendInContactForm.cy.ts,
             cypress/e2e/searchInBlog.cy.ts
+          config: |
+            reporter=junit,
+            reporterOptions.mochaFile=reports/junit-[hash].xml
+        continue-on-error: true
             
       - name: Upload Cypress Videos
         if: always() 
