@@ -10,6 +10,9 @@ export class BasePage {
           })
         return this;
     }
+    public checkIfUrlIsAsExpected(expectedUrl: string) {
+        cy.url().should('contain', expectedUrl);
+    }
     protected typeIntoField(fieldSelector: string, text: string): BasePage {
         cy.get(fieldSelector).scrollIntoView().focus().realType(text);
         return this;

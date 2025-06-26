@@ -28,5 +28,19 @@ export default defineConfig({
   retries:{
     openMode:2,
     runMode:4
+  },
+  reporter:'cypress-testrail-reporter',
+  reporterOptions: {
+  host: process.env.TESTRAIL_HOST,
+  username: process.env.TESTRAIL_USERNAME,
+  password: process.env.TESTRAIL_PASSWORD, 
+  projectId: process.env.TESTRAIL_PROJECT_ID,
+  suiteId: process.env.TESTRAIL_SUITE_ID,
+  runName: 'Cypress Run E2E to Test Rail',
+  includeAll: true,
+  reporter: 'junit',
+  reporterOptions: {
+    mochaFile: 'reports/junit-[hash].xml',
+    toConsole: true
   }
-});
+}});

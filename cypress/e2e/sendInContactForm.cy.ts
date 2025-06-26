@@ -4,7 +4,6 @@ import "cypress-real-events";
 describe("Contact form test set",  () => {
         const contactPage = new ContactPage();
         let contactFormObject;
-        
         before(() =>{
             cy.fixture('contactFormObject.json').then((object) => {
             contactFormObject = object;
@@ -16,7 +15,8 @@ describe("Contact form test set",  () => {
             contactPage.clearAllFormFields();
             helpers.cypressCaughtException();
         });
-        it ("TC1. Fill in all fields, succesfull sent", () => {
+        
+        it ("C1 : Fill in all fields within contact form, succesfull sent", () => {
             contactPage.typeIntoContactFormField("Twoje imię", contactFormObject.standard.name)
             .typeIntoContactFormField("Twój email", contactFormObject.standard.email)
             .typeIntoContactFormField("Twoja wiadomości (optional)", contactFormObject.standard.message || "")
@@ -24,36 +24,36 @@ describe("Contact form test set",  () => {
             .clickOnSubmitButton()
             .isMessageSubmitSuccessfull();
         });
-        it("TC2. Click on Social Media icon - Facebook", () => {
+        it("C2 : Click on Social Media icon - Facebook", () => {
             contactPage.checkIfSocialMediaPageIsLinked("Facebook");
         });
-        it("TC3. Click on Social Media icon - Twitter", () => {
+        it("C3 : Click on Social Media icon - Twitter", () => {
             contactPage.checkIfSocialMediaPageIsLinked("X");
         });
 
-        it("TC4. Click on Social Media icon - Youtube", () => {
+        it("C4 : Click on Social Media icon - Youtube", () => {
             contactPage.checkIfSocialMediaPageIsLinked("Youtube");
         });
 
-        it("TC5. Click on Social Media icon - LinkedIn", () => {
+        it("C5 : Click on Social Media icon - LinkedIn", () => {
             contactPage.checkIfSocialMediaPageIsLinked("LinkedIn");
         });
 
-        it("TC6. Click on Social Media icon - Github", () => {
+        it("C6 : Click on Social Media icon - Github", () => {
             contactPage.checkIfSocialMediaPageIsLinked("Github");
         });
 
-        it("TC7. Fill in not all fields, unsuccesfull sent", () => {
+        it("C7 : Fill in not all fields, unsuccesfull sent", () => {
             contactPage.typeIntoContactFormField("Twoje imię", contactFormObject.standard.name)
             .typeIntoContactFormField("Twój email", contactFormObject.standard.email)
             .clickOnSubmitButton()
             .isMessageSubmitFailed();
         });
-        it("TC8. Send blank text message", () => {
+        it("C8 : Send blank text message", () => {
             contactPage.clickSubmitButtonForced()
             .isMessageSubmitFailed();
         });
-        it("TC9. Send message to invalid email address", () => {
+        it("C9 : Send message to invalid email address", () => {
             contactPage.typeIntoContactFormField("Twoje imię", contactFormObject.emailCase.name)
             .typeIntoContactFormField("Twój email", contactFormObject.emailCase.email)
             .typeIntoContactFormField("Twoja wiadomości (optional)", contactFormObject.emailCase.message || "")
