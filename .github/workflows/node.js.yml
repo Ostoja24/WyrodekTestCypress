@@ -79,10 +79,8 @@ jobs:
       - name: TestRail CLI upload results from test execution
         if: always()
         run: |
-          echo "Checking for JUnit XML files..."
-          if [ -d "reports" ] && [ -n "$(find reports -name '*.xml' -type f 2>/dev/null)" ]; then
-            echo "Found XML files:"
-            find reports -name "*.xml" -type f
+          XML_FILE=$(find . -name "*.xml" -type f | head -1)
+          echo "XML file found: $XML_FILE"
           pip install trcli
           trcli -y \
             -h https://ostoja24.testrail.io/ \
