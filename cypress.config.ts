@@ -37,5 +37,10 @@ export default defineConfig({
   projectId: process.env.TESTRAIL_PROJECT_ID,
   suiteId: process.env.TESTRAIL_SUITE_ID,
   runName: 'Cypress Run E2E to Test Rail',
-  includeAll: true
+  includeAll: true,
+  reporter: 'junit',
+  reporterOptions: {
+    mochaFile: 'reports/junit-[hash].xml',
+    toConsole: true
+  }
 }});

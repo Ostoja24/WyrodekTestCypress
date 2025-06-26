@@ -32,7 +32,8 @@ jobs:
             cypress/e2e/searchInBlog.cy.ts
           config: |
             reporter=junit,
-            reporterOptions.mochaFile=reports/junit-[hash].xml
+            reporterOptions.mochaFile=reports/junit-[hash].xml,
+            reporterOptions.toConsole=true
         continue-on-error: true
             
       - name: Upload Cypress Videos
